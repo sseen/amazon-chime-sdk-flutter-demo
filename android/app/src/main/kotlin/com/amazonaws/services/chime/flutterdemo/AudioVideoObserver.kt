@@ -57,4 +57,7 @@ class AudioVideoObserver(val methodChannel: MethodChannelCoordinator) : AudioVid
     override fun onVideoSessionStopped(sessionStatus: MeetingSessionStatus) {
         // Out of Scope
     }
+    fun onCameraSendAvailabilityUpdated(isAvailable: Boolean) {        //
+    //
+    }
 }

@@ -17,7 +17,7 @@ class Api {
     String url = "${_baseUrl}join?title=$meetingId&name=$attendeeId&region=$_region";
 
     try {
-      final http.Response response = await http.post(Uri.parse(url));
+      final http.Response response = await http.post(Uri.parse(url),headers: {'X-API-KEY': '44p8ILVBQw26o7b5vlhYYadFeM7RTxwh8gcdWUJd'});
 
       logger.d("STATUS: ${response.statusCode}");
 
