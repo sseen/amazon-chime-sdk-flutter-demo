@@ -70,17 +70,27 @@ class MeetingView extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: displayVideoTiles(meetingProvider, orientation, context),
-          ),
-          const Padding(
+           Padding(
             padding: EdgeInsets.only(top: 30, bottom: 20),
-            child: Text(
-              "Attendees",
-              style: TextStyle(fontSize: Style.titleSize),
-              textAlign: TextAlign.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child:  Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Attendees",
+                      style: TextStyle(fontSize: Style.titleSize),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: btLeaveMeting(meetingProvider, context),
+                )
+              ],
             ),
           ),
           Column(
@@ -91,16 +101,21 @@ class MeetingView extends StatelessWidget {
               meetingProvider.stopMeeting();
               return true;
             },
-            child: const Spacer(),
+            child: Container(),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 50),
-            child: SizedBox(
-              height: 50,
-              width: 300,
-              child: leaveMeetingButton(meetingProvider, context),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: displayVideoTiles(meetingProvider, orientation, context),
           ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 50),
+          //   child: SizedBox(
+          //     height: 50,
+          //     width: 300,
+          //     child: leaveMeetingButton(meetingProvider, context),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -618,6 +633,18 @@ class MeetingView extends StatelessWidget {
         Navigator.pop(context);
       },
       child: const Text("Leave Meeting"),
+    );
+  }
+
+  Widget btLeaveMeting(MeetingViewModel meetingProvider, BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.power_settings_new),
+      color: Colors.red,
+      onPressed: () {
+        // 你可以在这里执行关机按钮的操作
+        meetingProvider.stopMeeting();
+        Navigator.pop(context);
+      },
     );
   }
 
