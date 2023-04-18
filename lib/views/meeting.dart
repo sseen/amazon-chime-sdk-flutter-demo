@@ -17,7 +17,9 @@ import '../logger.dart';
 import 'style.dart';
 
 class MeetingView extends StatelessWidget {
-  const MeetingView({Key? key}) : super(key: key);
+  MeetingView({Key? key, this.isFirst = true}) : super(key: key);
+
+  bool isFirst;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,13 @@ class MeetingView extends StatelessWidget {
 
     if (!meetingProvider.isMeetingActive) {
       Navigator.maybePop(context);
+
+    }
+
+    if (isFirst) {
+      final one = meetingProvider.deviceList.first;
+      meetingProvider.updateCurrentDevice(one!);
+      isFirst = false;
     }
 
     return Scaffold(
@@ -370,7 +379,7 @@ class MeetingView extends StatelessWidget {
     }
 
     if (!meetingProvider.isReceivingScreenShare) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MeetingView()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  MeetingView()));
     }
 
     Navigator.pushReplacement(
@@ -385,7 +394,7 @@ class MeetingView extends StatelessWidget {
                     width: double.infinity,
                     child: GestureDetector(
                         onDoubleTap: () =>
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MeetingView())),
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  MeetingView())),
                         child: contentTile),
                   ),
                 ),
@@ -487,6 +496,7 @@ class MeetingView extends StatelessWidget {
         height: 230,
         child: GestureDetector(
           onDoubleTap: () {
+            logger.d('double click');
             Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenShare(paramsVT: paramsVT)));
           },
           child: videoTile,

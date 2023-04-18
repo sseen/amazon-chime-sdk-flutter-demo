@@ -17,9 +17,11 @@ import com.amazonaws.services.chime.sdk.meetings.utils.logger.ConsoleLogger
 import com.amazonaws.services.chime.flutterdemo.MethodCall as MethodCallFlutter
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import androidx.appcompat.app.AppCompatActivity
+import com.amazonaws.services.chime.sdk.meetings.device.MediaDeviceType
 import io.flutter.plugin.common.MethodChannel
 
 class MethodChannelCoordinator(binaryMessenger: BinaryMessenger, activity: Activity) :
@@ -192,8 +194,15 @@ class MethodChannelCoordinator(binaryMessenger: BinaryMessenger, activity: Activ
     fun listAudioDevices(): MethodChannelResult {
         val audioDevices = MeetingSessionManager.meetingSession?.audioVideo?.listAudioDevices()
             ?: return NULL_MEETING_SESSION_RESPONSE
+        val temps = arrayListOf<MediaDevice>()
+        temps.addAll(
+            audioDevices.filter {
+                it.type != MediaDeviceType.OTHER
+            }.sortedBy { it.order }
+        )
+        Log.d("ssn", temps.toString())
         val transform: (MediaDevice) -> String = { it.label }
-        return MethodChannelResult(true, audioDevices.map(transform))
+        return MethodChannelResult(true, temps.map(transform))
     }
 
     fun updateAudioDevice(call: MethodCall): MethodChannelResult {

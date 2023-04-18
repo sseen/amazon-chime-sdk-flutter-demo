@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             '/joinMeeting': (_) => JoinMeetingView(),
-            '/meeting': (_) => const MeetingView(),
+            '/meeting': (_) =>  MeetingView(),
           },
           home: JoinMeetingView(),
         ),

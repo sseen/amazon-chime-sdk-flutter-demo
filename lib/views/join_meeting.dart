@@ -139,7 +139,7 @@ class JoinMeetingView extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const MeetingView(),
+                  builder: (context) =>  MeetingView(),
                 ),
               );
             }
