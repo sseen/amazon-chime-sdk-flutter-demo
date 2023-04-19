@@ -37,6 +37,8 @@ class MeetingViewModel extends ChangeNotifier
 
   bool isReceivingScreenShare = false;
   bool isMeetingActive = false;
+  var scaleMode = 1.0;
+  int selectedItemIndex = -1;
 
   MeetingViewModel(BuildContext context) {
     methodChannelProvider = Provider.of<MethodChannelCoordinator>(context, listen: false);
@@ -51,6 +53,21 @@ class MeetingViewModel extends ChangeNotifier
     meetingData = meetData;
     meetingId = meetData.meeting.externalMeetingId;
     notifyListeners();
+  }
+
+  void changeScaleMode() {
+    scaleMode = scaleMode == 1.0 ?  2.0 : 1.0;
+    notifyListeners();
+  }
+
+  void toggle(int index) {
+    logger.d('click $index');
+      if (selectedItemIndex == index) {
+        selectedItemIndex = -1;
+      } else {
+        selectedItemIndex = index;
+      }
+      notifyListeners();
   }
 
   void initializeLocalAttendee() {

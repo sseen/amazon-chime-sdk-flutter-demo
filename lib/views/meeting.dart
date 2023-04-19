@@ -71,11 +71,11 @@ class MeetingView extends StatelessWidget {
             height: 8,
           ),
            Padding(
-            padding: EdgeInsets.only(top: 30, bottom: 20),
+            padding: const EdgeInsets.only(top: 30, bottom: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
+                const Expanded(
                   child:  Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -103,10 +103,10 @@ class MeetingView extends StatelessWidget {
             },
             child: Container(),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: displayVideoTiles(meetingProvider, orientation, context),
+          Center(
+            child: Wrap(
+              children: displayVideoTiles(meetingProvider, orientation, context),
+            ),
           ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(vertical: 50),
@@ -444,7 +444,7 @@ class MeetingView extends StatelessWidget {
       if (meetingProvider.currAttendees.containsKey(meetingProvider.remoteAttendeeId)) {
         if ((meetingProvider.currAttendees[meetingProvider.remoteAttendeeId]?.isVideoOn ?? false) &&
             meetingProvider.currAttendees[meetingProvider.remoteAttendeeId]?.videoTile != null) {
-          videoTiles.add(Expanded(child: remoteVideoTile));
+          videoTiles.add(remoteVideoTile);
         }
       }
     }
@@ -463,9 +463,42 @@ class MeetingView extends StatelessWidget {
           ),
         );
       }
-    }
+      return videoTiles;
+    } else {
+      double itemWidth = MediaQuery.of(context).size.width * 0.5 - 10;
 
-    return videoTiles;
+      return List.generate(videoTiles.length, (index) {
+        bool isSelected = meetingProvider.selectedItemIndex == index;
+        return isSelected
+            ? GestureDetector(
+          onTap: () {
+            meetingProvider.toggle(index);
+          },
+          behavior: HitTestBehavior.opaque,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 200),
+            width: itemWidth * 2,
+            height: 150*2,
+            color: Colors.blue[300],
+            child: videoTiles[index],
+          ),
+        )
+            : Offstage(
+          offstage: meetingProvider.selectedItemIndex != -1,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => meetingProvider.toggle(index),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              width: itemWidth,
+              height: 150,
+              color: Colors.red[200],
+              child: videoTiles[index],
+            ),
+          ),
+        );
+      });
+    }
   }
 
   Widget contentVideoTile(int? paramsVT, MeetingViewModel meetingProvider, BuildContext context) {
@@ -571,7 +604,7 @@ class MeetingView extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
         width: 200,
         height: 230,
@@ -679,4 +712,6 @@ class MeetingView extends StatelessWidget {
       return Icons.videocam_off;
     }
   }
+
+
 }
