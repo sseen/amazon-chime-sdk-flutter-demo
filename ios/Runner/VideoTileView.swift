@@ -8,6 +8,7 @@ import Foundation
 
 class VideoTileView: NSObject, FlutterPlatformView {
     private var _view: UIView
+    private var _paras: Any?
 
     init(
         frame: CGRect,
@@ -29,7 +30,22 @@ class VideoTileView: NSObject, FlutterPlatformView {
            
         // Declare _view as UIView for Flutter interpretation
         _view = _view as UIView
+        _paras = args
+
+        _view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        _view.addGestureRecognizer(tapGesture)
+
     }
+
+
+        @objc func handleTap(_ sender: UITapGestureRecognizer) {
+            print("CustomView tapped")
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+            appDelegate.methodChannel?.callFlutterMethod(method: .clickOnVideo, args: _paras)
+        }
+
 
     func view() -> UIView {
         return _view

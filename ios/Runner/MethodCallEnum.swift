@@ -22,6 +22,7 @@ enum MethodCall: String {
     case listAudioDevices
     case updateAudioDevice
     case audioSessionDidStop
+    case clickOnVideo
 }
 
 enum Response: String {

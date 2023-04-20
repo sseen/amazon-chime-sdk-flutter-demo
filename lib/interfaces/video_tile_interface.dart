@@ -13,4 +13,8 @@ class VideoTileInterface {
   void videoTileDidRemove(String attendeeId, VideoTile videoTile) {
     // Gets called when a video tile is removed
   }
+
+  void clickOnVideo(String attendeeId) {
+    // Gets called when a video tile is added
+  }
 }

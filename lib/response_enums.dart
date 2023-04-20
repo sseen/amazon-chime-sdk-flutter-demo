@@ -61,4 +61,5 @@ class MethodCallOption {
   static const String updateAudioDevice = "updateAudioDevice";
   static const String audioSessionDidDrop = "audioSessionDidDrop";
   static const String audioSessionDidStop = "audioSessionDidStop";
+  static const String clickOnVideo = "clickOnVideo";
 }

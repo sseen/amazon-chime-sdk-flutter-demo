@@ -89,6 +89,10 @@ class MethodChannelCoordinator extends ChangeNotifier {
         final VideoTile videoTile = VideoTile.fromJson(call.arguments);
         videoTileObserver?.videoTileDidAdd(attendeeId, videoTile);
         break;
+      case MethodCallOption.clickOnVideo:
+        final String attendeeId = call.arguments["attendeeId"]??'01';
+        videoTileObserver?.clickOnVideo(attendeeId);
+        break;
       case MethodCallOption.videoTileRemove:
         final String attendeeId = call.arguments["attendeeId"];
         final VideoTile videoTile = VideoTile.fromJson(call.arguments);

@@ -151,6 +151,11 @@ class MeetingViewModel extends ChangeNotifier
   }
 
   @override
+  void clickOnVideo(String attendeeId) {
+    logger.i('clickOnVideo ssn');
+  }
+
+  @override
   void videoTileDidRemove(String attendeeId, VideoTile videoTile) {
     if (videoTile.isContentShare) {
       currAttendees[contentAttendeeId]?.videoTile = null;
