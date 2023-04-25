@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../view_models/join_meeting_view_model.dart';
 import '../view_models/meeting_view_model.dart';
 import 'meeting.dart';
+import 'meeting_preview.dart';
 
 class JoinMeetingView extends StatelessWidget {
   JoinMeetingView({Key? key}) : super(key: key);
@@ -139,7 +140,7 @@ class JoinMeetingView extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  MeetingView(),
+                  builder: (context) =>  MeetingPreivewView(),
                 ),
               );
             }
