@@ -89,6 +89,11 @@ class MeetingView extends StatelessWidget {
                   height: 50,
                   width: 50,
                   child: btLeaveMeting(meetingProvider, context),
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: btBlur(meetingProvider, context),
                 )
               ],
             ),
@@ -677,6 +682,16 @@ class MeetingView extends StatelessWidget {
         // 你可以在这里执行关机按钮的操作
         meetingProvider.stopMeeting();
         Navigator.pop(context);
+      },
+    );
+  }
+
+  Widget btBlur(MeetingViewModel meetingProvider, BuildContext context) {
+    return IconButton(
+      icon: const Icon(Icons.image_sharp),
+      color: Colors.brown,
+      onPressed: () {
+        meetingProvider.btBlur();
       },
     );
   }

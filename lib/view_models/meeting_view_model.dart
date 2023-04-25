@@ -312,6 +312,15 @@ class MeetingViewModel extends ChangeNotifier
     logger.i(stopResponse.arguments);
   }
 
+  void btBlur() async {
+    MethodChannelResponse? stopResponse = await methodChannelProvider?.callMethod(MethodCallOption.bgBlur);
+    if (stopResponse == null) {
+      logger.e(Response.stop_response_null);
+      return;
+    }
+    logger.i(stopResponse.arguments);
+  }
+
   //
   // —————————————————————————— Helpers ——————————————————————————————————————
   //

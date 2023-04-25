@@ -53,6 +53,8 @@ class MethodChannelCoordinator {
                     response = self.initialAudioSelection()
                 case .listAudioDevices:
                     response = self.listAudioDevices()
+                case .bgBlur:
+                    response = self.bgBlur()
                 case .updateAudioDevice:
                     response = self.updateAudioDevice(call: call)
                 default:
@@ -167,6 +169,8 @@ class MethodChannelCoordinator {
     func startLocalVideo() -> MethodChannelResponse {
         do {
             try MeetingSession.shared.meetingSession?.audioVideo.startLocalVideo()
+            // try bgBlur()
+
             return MethodChannelResponse(result: true, arguments: Response.local_video_on_success.rawValue)
         } catch {
             MeetingSession.shared.meetingSession?.logger.error(msg: "Error configuring AVAudioSession: \(error.localizedDescription)")
@@ -192,6 +196,25 @@ class MethodChannelCoordinator {
         }
         
         return MethodChannelResponse(result: true, arguments: audioDevices.map { $0.label })
+    }
+    
+    func bgBlur() -> MethodChannelResponse {
+        let backgroundBlurConfigurations = BackgroundBlurConfiguration(logger: ConsoleLogger(name: "BackgroundBlurProcessor"),
+                                                                       blurStrength: BackgroundBlurStrength.low)
+        let backgroundBlurVideoFrameProcessor = BackgroundBlurVideoFrameProcessor(backgroundBlurConfiguration: backgroundBlurConfigurations)
+
+        let cameraCaptureSource = DefaultCameraCaptureSource(logger: ConsoleLogger(name: "DefaultCameraCaptureSource"))
+
+        // Add the background blur processor as sink to the video source (e.g. `DefaultCameraCaptureSource`)
+        cameraCaptureSource.addVideoSink(sink: backgroundBlurVideoFrameProcessor)
+        
+        // Use background blur processor as source
+        MeetingSession.shared.meetingSession?.audioVideo.startLocalVideo(source: backgroundBlurVideoFrameProcessor)
+
+        
+        //MeetingSession.shared.meetingSession?.audioVideo.stopLocalVideo()
+        
+        return MethodChannelResponse(result: true, arguments: Response.local_video_off_success.rawValue)
     }
     
     func updateAudioDevice(call: FlutterMethodCall) -> MethodChannelResponse {

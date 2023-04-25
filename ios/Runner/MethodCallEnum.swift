@@ -23,6 +23,7 @@ enum MethodCall: String {
     case updateAudioDevice
     case audioSessionDidStop
     case clickOnVideo
+    case bgBlur
 }
 
 enum Response: String {
