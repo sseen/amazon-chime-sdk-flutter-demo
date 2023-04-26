@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.3
   http: ^0.13.4
+  noise_meter: ^3.2.0
   logger: ^1.1.0 # If publishing to GitHub review this package
 
 dev_dependencies:

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT-0
  */
 
+import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -11,9 +12,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo_chime_sdk/view_models/meeting_view_model.dart';
 import 'package:flutter_demo_chime_sdk/views/screenshare.dart';
+import 'package:noise_meter/noise_meter.dart';
 import 'package:provider/provider.dart';
 
 import '../logger.dart';
+import 'check_microphone.dart';
 import 'meeting.dart';
 import 'style.dart';
 
@@ -29,14 +32,16 @@ class MeetingPreivewView extends StatelessWidget {
 
     if (!meetingProvider.isMeetingActive) {
       Navigator.maybePop(context);
-
     }
 
     if (isFirst) {
+      meetingProvider.sendLocalVideoTileOn();
       final one = meetingProvider.deviceList.first;
       meetingProvider.updateCurrentDevice(one!);
       isFirst = false;
     }
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -65,46 +70,26 @@ class MeetingPreivewView extends StatelessWidget {
   //
 
   Widget meetingBodyPortrait(MeetingViewModel meetingProvider, Orientation orientation, BuildContext context) {
-    return Center(
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 8,
           ),
-           Padding(
-            padding: const EdgeInsets.only(top: 30, bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Expanded(
-                  child:  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Attendees",
-                      style: TextStyle(fontSize: Style.titleSize),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: btLeaveMeting(meetingProvider, context),
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: btBlur(meetingProvider, context),
-                )
-              ],
-            ),
+        Text(
+          'この画面はオンライン面談前のプレビュー画面となります。①映像、②マイク、③スピーカーに問題がないことを確認し参加するボタンを押してください。 いずれかに問題がある場合、一度画面を閉じて通信環境に問題ないことを確認し再度開始ボタンを押してください。',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Color(0xFF000000),
           ),
-          Column(
-            children: displayAttendees(meetingProvider, context),
-          ),
-          WillPopScope(
+        ),
+
+        WillPopScope(
             onWillPop: () async {
-              meetingProvider.stopMeeting();
+              // meetingProvider.stopMeeting();
               return true;
             },
             child: Container(),
@@ -114,10 +99,78 @@ class MeetingPreivewView extends StatelessWidget {
               children: displayVideoTiles(meetingProvider, orientation, context),
             ),
           ),
+          Text(
+            '①映像が乱れていないことを確認してください。',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Color(0xFF000000),
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'マイク',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Color(0xFF000000),
+            ),
+          ),
+          //Indeterminate progress indicator
+
+          SizedBox(
+            height: 40,
+            width: 300,
+            child: OutlinedButton(
+              onPressed: () {
+                // Handle button press
+                showAudioDeviceDialog(meetingProvider, context);
+              },
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: Colors.grey),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(meetingProvider.deviceList.first!??'click',
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                  SizedBox(width: 8),
+                  Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+                ],
+              ),
+            ),
+          ),
+
+          SizedBox(height: 10),
+
+          // Customized progress indicator with rounded corners and height
+          CheckMicrophoneView(),
+          Text(
+            '②マイクが使用できることを確認してください。音声を認識している場合、上記のバーが緑色になります。',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Color(0xFF000000),
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            '③スピーカーが使用できることを確認してください。スピーカーテストボタンを押してスピーカーから音が聞こえてくることを確認してください。',
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Color(0xFF000000),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 50),
             child: SizedBox(
-              height: 50,
+              height: 30,
               width: 300,
               child: joinMeetingButton(meetingProvider, context),
             ),
@@ -666,18 +719,19 @@ class MeetingPreivewView extends StatelessWidget {
 
   Widget joinMeetingButton(MeetingViewModel meetingProvider, BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(primary: Colors.red),
+      style: ElevatedButton.styleFrom(primary: Color(0xff253544)),
       onPressed: () {
         //meetingProvider.stopMeeting();
         //Navigator.pop(context);
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) =>  MeetingView(),
           ),
+          ModalRoute.withName('/myHomePage'),
         );
       },
-      child: const Text("Leave Meeting"),
+      child: Text("参加する"),
     );
   }
 
