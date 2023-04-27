@@ -41,7 +41,7 @@ class MeetingPreivewView extends StatelessWidget {
       isFirst = false;
     }
 
-
+    logger.i('preview load');
 
     return Scaffold(
       appBar: AppBar(
@@ -87,8 +87,10 @@ class MeetingPreivewView extends StatelessWidget {
           ),
         ),
 
+
         WillPopScope(
             onWillPop: () async {
+              //meetingProvider.sendLocalVideoTileOn();
               // meetingProvider.stopMeeting();
               return true;
             },
@@ -721,6 +723,7 @@ class MeetingPreivewView extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(primary: Color(0xff253544)),
       onPressed: () {
+        meetingProvider.sendLocalVideoTileOn();
         //meetingProvider.stopMeeting();
         //Navigator.pop(context);
         Navigator.pushAndRemoveUntil(

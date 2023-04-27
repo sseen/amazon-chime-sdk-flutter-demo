@@ -18,7 +18,7 @@ class _CheckMicrophoneViewState extends State<CheckMicrophoneView> {
   @override
   void initState() {
     super.initState();
-    _noiseMeter = new NoiseMeter(onError);
+    _noiseMeter = NoiseMeter(onError);
   }
 
   @override
