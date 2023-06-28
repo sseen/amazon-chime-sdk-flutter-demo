@@ -1,20 +1,39 @@
 PODS:
-  - AmazonChimeSDK-Bitcode (0.22.4):
-    - AmazonChimeSDKMedia-Bitcode (~> 0.17.8)
-  - AmazonChimeSDKMedia-Bitcode (0.17.8)
+  - AmazonChimeSDK-Bitcode (0.22.7):
+    - AmazonChimeSDKMedia-Bitcode (= 0.17.11)
+  - AmazonChimeSDKMedia-Bitcode (0.17.11)
+  - audio_streamer (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - permission_handler_apple (9.0.4):
+    - Flutter
 
 DEPENDENCIES:
   - AmazonChimeSDK-Bitcode (~> 0.22.4)
+  - audio_streamer (from `.symlinks/plugins/audio_streamer/ios`)
+  - Flutter (from `Flutter`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
 
 SPEC REPOS:
   trunk:
     - AmazonChimeSDK-Bitcode
     - AmazonChimeSDKMedia-Bitcode
 
-SPEC CHECKSUMS:
-  AmazonChimeSDK-Bitcode: 897b2c774f9b270ea82957d924ea51c46c64aab2
-  AmazonChimeSDKMedia-Bitcode: 15ccb22779dbf2b81e097412a8bde5a776d12024
+EXTERNAL SOURCES:
+  audio_streamer:
+    :path: ".symlinks/plugins/audio_streamer/ios"
+  Flutter:
+    :path: Flutter
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
 
-PODFILE CHECKSUM: 397b826e00422fbfb406095d41d23f7e4b7f1795
+SPEC CHECKSUMS:
+  AmazonChimeSDK-Bitcode: 0504362c4260b0229f2fac0cd9edf9b3c6191d22
+  AmazonChimeSDKMedia-Bitcode: 8b5a340ecf4d4802a2875b872f0d06e6c6fab8c6
+  audio_streamer: af49e73eb66f71c4eeabb4bbcb05f122d03a6709
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
+
+PODFILE CHECKSUM: 64c0e2a3d37c9c1688a62f5c2062f514e7e66690
 
 COCOAPODS: 1.11.3

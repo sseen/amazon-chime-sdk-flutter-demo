@@ -4,6 +4,7 @@
  */
 
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_demo_chime_sdk/api_config.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +16,7 @@ class Api {
 
   Future<ApiResponse?> join(String meetingId, String attendeeId) async {
     String url = "${_baseUrl}join?title=$meetingId&name=$attendeeId&region=$_region";
+    print('chime ss: $url');
 
     try {
       final http.Response response = await http.post(Uri.parse(url),headers: {'X-API-KEY': '44p8ILVBQw26o7b5vlhYYadFeM7RTxwh8gcdWUJd'});

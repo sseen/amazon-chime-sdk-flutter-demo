@@ -122,7 +122,7 @@ class MeetingPreivewView extends StatelessWidget {
 
           SizedBox(
             height: 40,
-            width: 300,
+            width: double.infinity,
             child: OutlinedButton(
               onPressed: () {
                 // Handle button press
