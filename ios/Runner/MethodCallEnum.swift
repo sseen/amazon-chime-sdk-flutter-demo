@@ -24,6 +24,7 @@ enum MethodCall: String {
     case audioSessionDidStop
     case clickOnVideo
     case bgBlur
+    case startRealFromPreview
 }
 
 enum Response: String {

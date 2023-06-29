@@ -132,6 +132,7 @@ class JoinMeetingView extends StatelessWidget {
             methodChannelProvider.initializeObservers(meetingProvider);
             methodChannelProvider.initializeMethodCallHandler();
 
+
             // Call api, format to JSON and send to native
             bool isMeetingJoined =
                 await joinMeetingProvider.joinMeeting(meetingProvider, methodChannelProvider, meeetingId, attendeeId);

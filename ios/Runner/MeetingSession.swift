@@ -22,6 +22,16 @@ class MeetingSession {
     
     func startMeetingAudio() -> MethodChannelResponse {
         let audioSessionConfigured = configureAudioSession()
+        //let audioSessionStarted = startAudioVideoConnection()
+        let audioSessionStarted = true
+        if audioSessionStarted, audioSessionConfigured {
+            return MethodChannelResponse(result: true, arguments: Response.create_meeting_success.rawValue)
+        }
+        return MethodChannelResponse(result: false, arguments: Response.meeting_start_failed.rawValue)
+    }
+    
+    func startMeetingAudioNotPreview() -> MethodChannelResponse {
+        let audioSessionConfigured = configureAudioSession()
         let audioSessionStarted = startAudioVideoConnection()
         if audioSessionStarted, audioSessionConfigured {
             return MethodChannelResponse(result: true, arguments: Response.create_meeting_success.rawValue)

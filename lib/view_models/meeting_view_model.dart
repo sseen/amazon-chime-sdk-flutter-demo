@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT-0
  */
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_chime_sdk/interfaces/audio_devices_interface.dart';
 import 'package:flutter_demo_chime_sdk/interfaces/audio_video_interface.dart';
@@ -40,6 +41,31 @@ class MeetingViewModel extends ChangeNotifier
   var scaleMode = 1.0;
   int selectedItemIndex = -1;
 
+  List<CameraDescription> _cameras=[];
+  late CameraController controller;
+
+  Future<void> listCameraDevices() async {
+    _cameras = await availableCameras();
+
+    controller = CameraController(_cameras[1], ResolutionPreset.medium);
+    controller.initialize().then((_) {
+      logger.d('camera done');
+      notifyListeners();
+    }).catchError((Object e) {
+      if (e is CameraException) {
+        switch (e.code) {
+          case 'CameraAccessDenied':
+          // Handle access errors here.
+            break;
+          default:
+          // Handle other errors here.
+            break;
+        }
+      }
+    });
+  }
+
+
   MeetingViewModel(BuildContext context) {
     methodChannelProvider = Provider.of<MethodChannelCoordinator>(context, listen: false);
   }
@@ -47,6 +73,8 @@ class MeetingViewModel extends ChangeNotifier
   //
   // ————————————————————————— Initializers —————————————————————————
   //
+
+
 
   void intializeMeetingData(JoinInfo meetData) {
     isMeetingActive = true;
@@ -301,6 +329,15 @@ class MeetingViewModel extends ChangeNotifier
         logger.e(videoStart.arguments);
       }
     }
+  }
+
+  void realStartNotPreview() async {
+    MethodChannelResponse? stopResponse = await methodChannelProvider?.callMethod(MethodCallOption.startRealFromPreview);
+    if (stopResponse == null) {
+      logger.e('realStartNotPreview false');
+      return;
+    }
+    logger.i(stopResponse.arguments);
   }
 
   void stopMeeting() async {

@@ -38,6 +38,8 @@ class JoinMeetingViewModel extends ChangeNotifier {
     logger.i("Joining Meeting...");
     _resetError();
 
+    meetingId = 'cc4d8d4b0ebd2ef4efbc1b19c8ffb701';
+
     bool audioPermissions = await _requestAudioPermissions(methodChannelProvider);
     bool videoPermissions = await _requestVideoPermissions(methodChannelProvider);
 
@@ -92,6 +94,7 @@ class JoinMeetingViewModel extends ChangeNotifier {
       _toggleLoadingStatus(startLoading: false);
       meetingProvider.initializeLocalAttendee();
       await meetingProvider.listAudioDevices();
+      await meetingProvider.listCameraDevices();
       await meetingProvider.initialAudioSelection();
       return true;
     } else {

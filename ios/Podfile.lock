@@ -4,6 +4,8 @@ PODS:
   - AmazonChimeSDKMedia-Bitcode (0.17.11)
   - audio_streamer (0.0.1):
     - Flutter
+  - camera_avfoundation (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - permission_handler_apple (9.0.4):
     - Flutter
@@ -11,6 +13,7 @@ PODS:
 DEPENDENCIES:
   - AmazonChimeSDK-Bitcode (~> 0.22.4)
   - audio_streamer (from `.symlinks/plugins/audio_streamer/ios`)
+  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - Flutter (from `Flutter`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
 
@@ -22,6 +25,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   audio_streamer:
     :path: ".symlinks/plugins/audio_streamer/ios"
+  camera_avfoundation:
+    :path: ".symlinks/plugins/camera_avfoundation/ios"
   Flutter:
     :path: Flutter
   permission_handler_apple:
@@ -31,6 +36,7 @@ SPEC CHECKSUMS:
   AmazonChimeSDK-Bitcode: 0504362c4260b0229f2fac0cd9edf9b3c6191d22
   AmazonChimeSDKMedia-Bitcode: 8b5a340ecf4d4802a2875b872f0d06e6c6fab8c6
   audio_streamer: af49e73eb66f71c4eeabb4bbcb05f122d03a6709
+  camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
 

@@ -5,6 +5,7 @@
 
 import 'dart:async';
 import 'dart:io' show Platform;
+import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,16 +31,18 @@ class MeetingPreivewView extends StatelessWidget {
     final meetingProvider = Provider.of<MeetingViewModel>(context);
     final orientation = MediaQuery.of(context).orientation;
 
-    if (!meetingProvider.isMeetingActive) {
-      Navigator.maybePop(context);
-    }
 
-    if (isFirst) {
-      meetingProvider.sendLocalVideoTileOn();
-      final one = meetingProvider.deviceList.first;
-      meetingProvider.updateCurrentDevice(one!);
-      isFirst = false;
-    }
+
+    // if (!meetingProvider.isMeetingActive) {
+    //   Navigator.maybePop(context);
+    // }
+
+    // if (isFirst) {
+    //   meetingProvider.sendLocalVideoTileOn();
+    //   final one = meetingProvider.deviceList.first;
+    //   meetingProvider.updateCurrentDevice(one!);
+    //   isFirst = false;
+    // }
 
     logger.i('preview load');
 
@@ -90,16 +93,16 @@ class MeetingPreivewView extends StatelessWidget {
 
         WillPopScope(
             onWillPop: () async {
-              //meetingProvider.sendLocalVideoTileOn();
               // meetingProvider.stopMeeting();
               return true;
             },
             child: Container(),
           ),
           Center(
-            child: Wrap(
-              children: displayVideoTiles(meetingProvider, orientation, context),
-            ),
+            child: SizedBox(
+              height: 200,
+              width: 100,
+              child: CameraPreview(meetingProvider.controller),),
           ),
           Text(
             '①映像が乱れていないことを確認してください。',
@@ -138,7 +141,7 @@ class MeetingPreivewView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(meetingProvider.deviceList.first!??'click',
+                  Text(meetingProvider.deviceList.firstWhere((element) => false, orElse: () => 'click')??'o',
                     style: TextStyle(color: Colors.grey, fontSize: 16),
                   ),
                   SizedBox(width: 8),
@@ -724,6 +727,9 @@ class MeetingPreivewView extends StatelessWidget {
       style: ElevatedButton.styleFrom(primary: Color(0xff253544)),
       onPressed: () {
         meetingProvider.sendLocalVideoTileOn();
+
+        meetingProvider.realStartNotPreview();
+
         //meetingProvider.stopMeeting();
         //Navigator.pop(context);
         Navigator.pushAndRemoveUntil(

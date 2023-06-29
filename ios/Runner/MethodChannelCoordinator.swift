@@ -55,6 +55,8 @@ class MethodChannelCoordinator {
                     response = self.listAudioDevices()
                 case .bgBlur:
                     response = self.bgBlur()
+                case .startRealFromPreview:
+                    response = self.startRealFromPreview();
                 case .updateAudioDevice:
                     response = self.updateAudioDevice(call: call)
                 default:
@@ -114,10 +116,12 @@ class MethodChannelCoordinator {
         }
         
         // TODO: zmauricv: add a Json Decoder
-        guard let meetingId = json["MeetingId"], let externalMeetingId = json["ExternalMeetingId"], let mediaRegion = json["MediaRegion"], let audioHostUrl = json["AudioHostUrl"], let audioFallbackUrl = json["AudioFallbackUrl"], let signalingUrl = json["SignalingUrl"], let turnControlUrl = json["TurnControlUrl"], let externalUserId = json["ExternalUserId"], let attendeeId = json["AttendeeId"], let joinToken = json["JoinToken"]
+        guard var meetingId = json["MeetingId"], let externalMeetingId = json["ExternalMeetingId"], let mediaRegion = json["MediaRegion"], let audioHostUrl = json["AudioHostUrl"], let audioFallbackUrl = json["AudioFallbackUrl"], let signalingUrl = json["SignalingUrl"], let turnControlUrl = json["TurnControlUrl"], let externalUserId = json["ExternalUserId"], let attendeeId = json["AttendeeId"], let joinToken = json["JoinToken"]
         else {
             return MethodChannelResponse(result: false, arguments: Response.incorrect_join_response_params.rawValue)
         }
+        
+        //meetingId = "48a0658ede8724195946fed6af1b9d94";
         
         let meetingResponse = CreateMeetingResponse(meeting: Meeting(externalMeetingId: externalMeetingId, mediaPlacement: MediaPlacement(audioFallbackUrl: audioFallbackUrl, audioHostUrl: audioHostUrl, signalingUrl: signalingUrl, turnControlUrl: turnControlUrl), mediaRegion: mediaRegion, meetingId: meetingId))
         
@@ -137,6 +141,11 @@ class MethodChannelCoordinator {
         self.setupAudioVideoFacadeObservers()
         let meetingStartResponse = MeetingSession.shared.startMeetingAudio()
         
+        return meetingStartResponse
+    }
+    
+    func startRealFromPreview() -> MethodChannelResponse {
+        let meetingStartResponse = MeetingSession.shared.startMeetingAudioNotPreview()
         return meetingStartResponse
     }
     

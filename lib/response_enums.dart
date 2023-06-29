@@ -63,4 +63,5 @@ class MethodCallOption {
   static const String audioSessionDidStop = "audioSessionDidStop";
   static const String clickOnVideo = "clickOnVideo";
   static const String bgBlur = "bgBlur";
+  static const String startRealFromPreview = "startRealFromPreview";
 }

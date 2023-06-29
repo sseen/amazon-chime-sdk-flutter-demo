@@ -72,21 +72,21 @@ class _CheckMicrophoneViewState extends State<CheckMicrophoneView> {
     start();
 
     return Container(
-      width: double.infinity,
-      height: 15.0,
-      color: Colors.transparent,
-      child: // Customized progress indicator with rounded corners and height
-      ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        child: SizedBox(
-          height: 20,
-          child: LinearProgressIndicator(
-            minHeight: 20,
-            value: _noise / 100,
-            backgroundColor: Color(0xffecf0f1),
-            color: Color(0xff18bc9c)),
-          ),
-        ),
+      // width: double.infinity,
+      // height: 15.0,
+      // color: Colors.transparent,
+      // child: // Customized progress indicator with rounded corners and height
+      // ClipRRect(
+      //   borderRadius: BorderRadius.all(Radius.circular(10)),
+      //   child: SizedBox(
+      //     height: 20,
+      //     child: LinearProgressIndicator(
+      //       minHeight: 20,
+      //       value: _noise / 100,
+      //       backgroundColor: Color(0xffecf0f1),
+      //       color: Color(0xff18bc9c)),
+      //     ),
+      //   ),
       );
   }
 }

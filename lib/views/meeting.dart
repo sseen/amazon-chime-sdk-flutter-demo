@@ -31,11 +31,13 @@ class MeetingView extends StatelessWidget {
 
     }
 
-    if (isFirst) {
-      final one = meetingProvider.deviceList.first;
-      meetingProvider.updateCurrentDevice(one!);
-      isFirst = false;
-    }
+    // if (isFirst) {
+    //   final one = meetingProvider.deviceList.first;
+    //   meetingProvider.updateCurrentDevice(one!);
+    //   isFirst = false;
+    // }
+
+    meetingProvider.sendLocalVideoTileOn();
 
     return Scaffold(
       appBar: AppBar(
