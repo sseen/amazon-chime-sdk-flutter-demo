@@ -31,6 +31,20 @@ object MeetingSessionManager {
         val audioVideo: AudioVideoFacade =
             meetingSession?.audioVideo ?: return NULL_MEETING_SESSION_RESPONSE
         addObservers(realtimeObserver, videoTileObserver, audioVideoObserver)
+//        audioVideo.start()
+        audioVideo.startRemoteVideo()
+        return MethodChannelResult(true, Response.create_meeting_success.msg)
+    }
+
+
+    fun startMeetingNotPreview(
+        realtimeObserver: RealtimeObserver? = null,
+        videoTileObserver: VideoTileObserver? = null,
+        audioVideoObserver: AudioVideoObserver? = null
+    ): MethodChannelResult {
+        val audioVideo: AudioVideoFacade =
+            meetingSession?.audioVideo ?: return NULL_MEETING_SESSION_RESPONSE
+        addObservers(realtimeObserver, videoTileObserver, audioVideoObserver)
         audioVideo.start()
         audioVideo.startRemoteVideo()
         return MethodChannelResult(true, Response.create_meeting_success.msg)

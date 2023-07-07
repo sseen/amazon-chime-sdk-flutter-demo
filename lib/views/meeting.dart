@@ -23,6 +23,8 @@ class MeetingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.i('Building widget ssn ${this.runtimeType}');
+
     final meetingProvider = Provider.of<MeetingViewModel>(context);
     final orientation = MediaQuery.of(context).orientation;
 
@@ -37,7 +39,7 @@ class MeetingView extends StatelessWidget {
     //   isFirst = false;
     // }
 
-    meetingProvider.sendLocalVideoTileOn();
+    // meetingProvider.sendLocalVideoTileOn();
 
     return Scaffold(
       appBar: AppBar(
@@ -430,7 +432,8 @@ class MeetingView extends StatelessWidget {
   }
 
   List<Widget> displayVideoTiles(MeetingViewModel meetingProvider, Orientation orientation, BuildContext context) {
-    Widget screenShareWidget = Expanded(child: videoTile(meetingProvider, context, isLocal: false, isContent: true));
+    // Widget screenShareWidget = Expanded(child: videoTile(meetingProvider, context, isLocal: false, isContent: true));
+    Widget screenShareWidget = videoTile(meetingProvider, context, isLocal: false, isContent: true);
     Widget localVideoTile = videoTile(meetingProvider, context, isLocal: true, isContent: false);
     Widget remoteVideoTile = videoTile(meetingProvider, context, isLocal: false, isContent: false);
 
@@ -475,6 +478,7 @@ class MeetingView extends StatelessWidget {
       double itemWidth = MediaQuery.of(context).size.width * 0.5 - 10;
 
       return List.generate(videoTiles.length, (index) {
+
         bool isSelected = meetingProvider.selectedItemIndex == index;
         return isSelected
             ? GestureDetector(
@@ -576,6 +580,8 @@ class MeetingView extends StatelessWidget {
       paramsVT = meetingProvider.currAttendees[meetingProvider.remoteAttendeeId]?.videoTile?.tileId;
     }
 
+    logger.d('video id: $paramsVT');
+
     Widget videoTile;
     if (Platform.isIOS) {
       videoTile = UiKitView(
@@ -611,6 +617,7 @@ class MeetingView extends StatelessWidget {
     }
 
     return Padding(
+      key: ValueKey(paramsVT),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
         width: 200,

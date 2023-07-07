@@ -16,6 +16,7 @@ enum class MethodCall(val call: String) {
     mute("mute"),
     unmute("unmute"),
     startLocalVideo("startLocalVideo"),
+    startRealFromPreview("startRealFromPreview"),
     stopLocalVideo("stopLocalVideo"),
     videoTileAdd("videoTileAdd"),
     videoTileRemove("videoTileRemove"),

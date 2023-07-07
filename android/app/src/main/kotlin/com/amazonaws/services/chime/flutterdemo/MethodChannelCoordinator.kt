@@ -66,6 +66,9 @@ class MethodChannelCoordinator(binaryMessenger: BinaryMessenger, activity: Activ
                 MethodCallFlutter.startLocalVideo.call -> {
                     callResult = startLocalVideo()
                 }
+                MethodCallFlutter.startRealFromPreview.call -> {
+                    callResult = startRealFromPreview()
+                }
                 MethodCallFlutter.stopLocalVideo.call -> {
                     callResult = stopLocalVideo()
                 }
@@ -174,6 +177,14 @@ class MethodChannelCoordinator(binaryMessenger: BinaryMessenger, activity: Activ
 
     fun startLocalVideo(): MethodChannelResult {
         MeetingSessionManager.meetingSession?.audioVideo?.startLocalVideo()
+            ?: return NULL_MEETING_SESSION_RESPONSE
+        return MethodChannelResult(true, Response.local_video_on_success.msg)
+    }
+
+    fun startRealFromPreview(): MethodChannelResult {
+        MeetingSessionManager.meetingSession?.audioVideo?.start()
+            ?: return NULL_MEETING_SESSION_RESPONSE
+        MeetingSessionManager.meetingSession?.audioVideo?.startRemoteVideo()
             ?: return NULL_MEETING_SESSION_RESPONSE
         return MethodChannelResult(true, Response.local_video_on_success.msg)
     }

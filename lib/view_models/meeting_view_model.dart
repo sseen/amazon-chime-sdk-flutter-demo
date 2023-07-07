@@ -47,7 +47,7 @@ class MeetingViewModel extends ChangeNotifier
   Future<void> listCameraDevices() async {
     _cameras = await availableCameras();
 
-    controller = CameraController(_cameras[1], ResolutionPreset.medium);
+    controller = CameraController(_cameras[1], ResolutionPreset.max);
     controller.initialize().then((_) {
       logger.d('camera done');
       notifyListeners();

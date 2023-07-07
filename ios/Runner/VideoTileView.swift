@@ -22,6 +22,8 @@ class VideoTileView: NSObject, FlutterPlatformView {
         let tileId = args as! Int
         let videoRenderView = _view as! VideoRenderView
            
+        print("ssn: \(tileId)")
+        
         // Bind view to VideoView
         MeetingSession.shared.meetingSession?.audioVideo.bindVideoView(videoView: videoRenderView, tileId: tileId)
            

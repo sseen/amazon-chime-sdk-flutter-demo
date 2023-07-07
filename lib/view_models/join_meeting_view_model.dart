@@ -38,7 +38,7 @@ class JoinMeetingViewModel extends ChangeNotifier {
     logger.i("Joining Meeting...");
     _resetError();
 
-    meetingId = 'cc4d8d4b0ebd2ef4efbc1b19c8ffb701';
+    meetingId = 'a0e09e5580f804896f83cd28f254499c';
 
     bool audioPermissions = await _requestAudioPermissions(methodChannelProvider);
     bool videoPermissions = await _requestVideoPermissions(methodChannelProvider);

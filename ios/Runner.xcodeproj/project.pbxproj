@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F725F3829F141F200740585 /* AmazonChimeSDKMachineLearning.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F725F3729F141F200740585 /* AmazonChimeSDKMachineLearning.xcframework */; };
 		0F725F3A29F1420400740585 /* selfie_segmentation_landscape.tflite in Resources */ = {isa = PBXBuildFile; fileRef = 0F725F3929F1420400740585 /* selfie_segmentation_landscape.tflite */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		168320DAF438F27B7D604A0E /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B63994101BD33FB981E3F363 /* Pods_Runner.framework */; };
@@ -25,6 +24,7 @@
 		BBCB8F29286B7DED00BD6088 /* FlutterVideoTileFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCB8F28286B7DED00BD6088 /* FlutterVideoTileFactory.swift */; };
 		BBCB8F2B286B7DFB00BD6088 /* VideoTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCB8F2A286B7DFB00BD6088 /* VideoTileView.swift */; };
 		BBE70746286659A2007A52FF /* AudioVideoObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE70745286659A2007A52FF /* AudioVideoObserver.swift */; };
+		F84D20AD2A4EBA2900CA1D4A /* AmazonChimeSDKMachineLearning.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F84D20AC2A4EBA2900CA1D4A /* AmazonChimeSDKMachineLearning.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,7 +41,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0F725F3729F141F200740585 /* AmazonChimeSDKMachineLearning.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AmazonChimeSDKMachineLearning.xcframework; sourceTree = "<group>"; };
 		0F725F3929F1420400740585 /* selfie_segmentation_landscape.tflite */ = {isa = PBXFileReference; lastKnownFileType = file; path = selfie_segmentation_landscape.tflite; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		BBE70745286659A2007A52FF /* AudioVideoObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVideoObserver.swift; sourceTree = "<group>"; };
 		D8B5925C28ECFABE00512FDD /* AmazonChimeSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AmazonChimeSDK.xcframework; path = "Pods/AmazonChimeSDK-Bitcode/AmazonChimeSDK.xcframework"; sourceTree = "<group>"; };
 		D8B5925F28ECFAC300512FDD /* AmazonChimeSDKMedia.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AmazonChimeSDKMedia.xcframework; path = "Pods/AmazonChimeSDKMedia-Bitcode/AmazonChimeSDKMedia.xcframework"; sourceTree = "<group>"; };
+		F84D20AC2A4EBA2900CA1D4A /* AmazonChimeSDKMachineLearning.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AmazonChimeSDKMachineLearning.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				168320DAF438F27B7D604A0E /* Pods_Runner.framework in Frameworks */,
-				0F725F3829F141F200740585 /* AmazonChimeSDKMachineLearning.xcframework in Frameworks */,
+				F84D20AD2A4EBA2900CA1D4A /* AmazonChimeSDKMachineLearning.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				0F725F3929F1420400740585 /* selfie_segmentation_landscape.tflite */,
-				0F725F3729F141F200740585 /* AmazonChimeSDKMachineLearning.xcframework */,
+				F84D20AC2A4EBA2900CA1D4A /* AmazonChimeSDKMachineLearning.framework */,
 				D8B5925F28ECFAC300512FDD /* AmazonChimeSDKMedia.xcframework */,
 				D8B5925C28ECFABE00512FDD /* AmazonChimeSDK.xcframework */,
 				B63994101BD33FB981E3F363 /* Pods_Runner.framework */,
@@ -238,6 +238,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -274,6 +275,7 @@
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

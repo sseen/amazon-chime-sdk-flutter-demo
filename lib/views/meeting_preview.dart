@@ -305,7 +305,7 @@ class MeetingPreivewView extends StatelessWidget {
               ),
               WillPopScope(
                 onWillPop: () async {
-                  meetingProvider.stopMeeting();
+                  // meetingProvider.stopMeeting();
                   return true;
                 },
                 child: const Spacer(),
@@ -633,6 +633,8 @@ class MeetingPreivewView extends StatelessWidget {
       paramsVT = meetingProvider.currAttendees[meetingProvider.remoteAttendeeId]?.videoTile?.tileId;
     }
 
+    logger.d('video id: $paramsVT');
+
     Widget videoTile;
     if (Platform.isIOS) {
       videoTile = UiKitView(
@@ -726,7 +728,7 @@ class MeetingPreivewView extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(primary: Color(0xff253544)),
       onPressed: () {
-        meetingProvider.sendLocalVideoTileOn();
+        //meetingProvider.sendLocalVideoTileOn();
 
         meetingProvider.realStartNotPreview();
 
